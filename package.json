@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.14",
     "@apollo/react-hooks": "^4.0.0",
     "@date-io/date-fns": "^1.3.13",
     "@devexpress/dx-react-chart": "^2.7.5",

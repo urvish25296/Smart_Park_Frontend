@@ -9,7 +9,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import App from "../App";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:5000",
+  uri: "https://recondite-aback-pirate.glitch.me/",
 });
 
 const authLink = setContext((_, { headers }) => {

@@ -7,48 +7,9 @@ const isLocalhost = Boolean(
     /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
   )
 );
-let swRegistration = null;
-
-const notifications = () => {
-  const notificationButton = document.getElementById("enableNotifications");
-  notificationButton.addEventListener("click", () => {
-    displayNotification();
-  });
-}
-
-const displayNotification = () => {
-  if (window.Notification && Notification.permission === "granted") {
-    notification();
-  }
-  // If the user hasn't told if he wants to be notified or not
-  // Note: because of Chrome, we are not sure the permission property
-  // is set, therefore it's unsafe to check for the "default" value.
-  else if (window.Notification && Notification.permission !== "denied") {
-    Notification.requestPermission(status => {
-      if (status === "granted") {
-        sendNotification();
-      } else {
-        alert("You denied or dismissed permissions to notifications.");
-      }
-    });
-  } else {
-    alert(
-      "You denied permissions to notifications. Please go to your browser or phone setting to allow notifications."
-    );
-  }
-}
-
-const sendNotification = () => {
-  const options = {
-    body: "Welcome to Smart Park.",
-    icon: "./bell.png"
-  };
-  swRegistration.showNotification("PWA Notification!", options);
-}
-
   
 export function register(config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator && "PushManager" in window) {
+  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) return;
 
@@ -89,8 +50,6 @@ function registerValidSW(swUrl, config) {
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
               }
-
-              notifications();
             } else {
               console.log('Content is cached for offline use.');
               if (config && config.onSuccess) {
